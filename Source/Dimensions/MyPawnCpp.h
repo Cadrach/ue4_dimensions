@@ -23,6 +23,16 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-	
+	int32 CountdownTime;
+
+	UTextRenderComponent* CountdownText;
+
+	void UpdateTimerDisplay();
+
+	void AdvanceTimer();
+
+	void CountdownHasFinished();
+
+	FTimerHandle CountdownTimerHandle;
 	
 };
