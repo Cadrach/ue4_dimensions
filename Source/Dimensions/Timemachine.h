@@ -3,6 +3,8 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "Engine.h"
+#include "TimeReversableComponent.h"
 #include "Timemachine.generated.h"
 
 //General Log
@@ -26,5 +28,4 @@ public:
 	//Array of observed Actors
 	UPROPERTY(EditAnywhere)
 	TArray<AActor*> observedActors;
-	
 };
