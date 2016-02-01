@@ -12,7 +12,7 @@ struct FTimeReversableStateStruct
 
 	//Constructors
 	FTimeReversableStateStruct(){}
-	FTimeReversableStateStruct(FVector l, float t = 0) : location(l), time(t){}
+	FTimeReversableStateStruct(FVector l, FRotator r, float t = 0) : location(l), rotation(r), time(t){}
 
 	//Always make USTRUCT variables into UPROPERTY()
 	//    any non-UPROPERTY() struct vars are not replicated
@@ -23,6 +23,9 @@ struct FTimeReversableStateStruct
 
 	UPROPERTY()
 	FVector location;
+
+	UPROPERTY()
+	FRotator rotation;
 
 	//Set
 	void SetFloat(float NewValue)
