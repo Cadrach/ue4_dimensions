@@ -40,6 +40,7 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 			FTimeReversableStateStruct(
 				GetOwner()->GetActorLocation(),
 				GetOwner()->GetActorRotation(),
+				GetOwner()->GetVelocity(),
 				GetWorld()->GetTimeSeconds()
 				)
 			);
@@ -67,6 +68,7 @@ void UTimeReversableComponent::ReverseToTime(float time)
 	//Apply latest state
 	GetOwner()->SetActorLocation(pastStates.Last().GetLocation());
 	GetOwner()->SetActorRotation(pastStates.Last().GetRotation());
+	(Cast<UStaticMeshComponent> (GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())))->SetPhysicsAngularVelocity(pastStates.Last().GetVelocity());
 }
 
 void UTimeReversableComponent::OffsetTimeBy(float time)
