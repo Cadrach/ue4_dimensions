@@ -68,7 +68,9 @@ void UTimeReversableComponent::ReverseToTime(float time)
 	//Apply latest state
 	GetOwner()->SetActorLocation(pastStates.Last().GetLocation());
 	GetOwner()->SetActorRotation(pastStates.Last().GetRotation());
-	(Cast<UStaticMeshComponent> (GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())))->SetPhysicsAngularVelocity(pastStates.Last().GetVelocity());
+//	(Cast<UStaticMeshComponent> (GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())))->SetPhysicsAngularVelocity(pastStates.Last().GetVelocity());
+	(Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())))->SetPhysicsAngularVelocity(FVector(0,0,0));
+	(Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())))->SetPhysicsLinearVelocity(FVector(0, 0, 0));
 }
 
 void UTimeReversableComponent::OffsetTimeBy(float time)
