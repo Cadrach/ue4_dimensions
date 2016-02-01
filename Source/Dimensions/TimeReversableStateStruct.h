@@ -27,13 +27,13 @@ struct FTimeReversableStateStruct
 	UPROPERTY()
 	FRotator rotation;
 
-	//Set
-	void SetFloat(float NewValue)
+	//Get
+	float GetTime() const
 	{
-		time = NewValue;
+		return time;
 	}
 
-	void SetLocation(FVector NewValue) {
-		location = NewValue;
+	FVector GetLocation() {
+		return location;
 	}
 };  //Always remember this ;  at the end! You will get odd compile errors otherwise

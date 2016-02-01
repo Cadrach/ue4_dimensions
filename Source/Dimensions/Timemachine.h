@@ -41,6 +41,9 @@ public:
 	//The Player Controller
 	APlayerController *PController;
 
+	//When did we start reversing
+	float reversingTimeStartAt;
+
 	//Are we reversing time?
 	bool bReversingTime;
 };

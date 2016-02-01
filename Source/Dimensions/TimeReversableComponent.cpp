@@ -27,7 +27,6 @@ void UTimeReversableComponent::BeginPlay()
 	
 }
 
-
 // Called every frame
 void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
@@ -37,7 +36,13 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 	}
 	else {
 		//UE_LOG(LogTemp, Warning, TEXT("Timecomponent TICKING NEW STATE %s, past states: %d"), *(GetOwner()->GetActorLocation()).ToString(), pastStates.Num());
-		pastStates.Add(FTimeReversableStateStruct(GetOwner()->GetActorLocation(), GetOwner()->GetActorRotation(), DeltaTime));
+		pastStates.Add(
+			FTimeReversableStateStruct(
+				GetOwner()->GetActorLocation(),
+				GetOwner()->GetActorRotation(),
+				UGameplayStatics::GetRealTimeSeconds(GetWorld())
+				)
+			);
 	}
 	latestLocation = GetOwner()->GetActorLocation();
 
@@ -45,3 +50,22 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 	// ...
 }
 
+FTimeReversableStateStruct UTimeReversableComponent::ReverseToTime(float time)
+{
+	//Print Star Locations
+	/*for (int32 b = pastStates.Num()-1; b >=0 ; b--)
+	{
+	//	UE_LOG(LogTemp, Warning, TEXT("Found time"));// pastStates[b].GetTime());
+	//	if (pastStates[b].GetTime() < time) {
+		//	UE_LOG(LogTemp, Warning, TEXT("Found time %d"), time);
+		//}
+	}*/
+
+	;
+	pastStates.RemoveAll([time](const FTimeReversableStateStruct Ptr) {
+		return Ptr.GetTime() > time && Ptr.GetTime() > 0;
+	});
+
+
+	return pastStates.Last();
+}
