@@ -40,7 +40,7 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 			FTimeReversableStateStruct(
 				GetOwner()->GetActorLocation(),
 				GetOwner()->GetActorRotation(),
-				UGameplayStatics::GetRealTimeSeconds(GetWorld())
+				GetWorld()->GetTimeSeconds()
 				)
 			);
 	}
@@ -50,22 +50,34 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 	// ...
 }
 
-FTimeReversableStateStruct UTimeReversableComponent::ReverseToTime(float time)
+void UTimeReversableComponent::ReverseToTime(float time)
 {
-	//Print Star Locations
-	/*for (int32 b = pastStates.Num()-1; b >=0 ; b--)
+	//Parse registered states in reverse
+	for (int32 Index = pastStates.Num() - 1; Index > 0; --Index)
 	{
-	//	UE_LOG(LogTemp, Warning, TEXT("Found time"));// pastStates[b].GetTime());
-	//	if (pastStates[b].GetTime() < time) {
-		//	UE_LOG(LogTemp, Warning, TEXT("Found time %d"), time);
-		//}
-	}*/
+		if (pastStates[Index].GetTime() > time)
+		{
+			pastStates.RemoveAt(Index, 1, true);
+		}
+		else {
+			break;
+		}
+	}
 
-	;
-	pastStates.RemoveAll([time](const FTimeReversableStateStruct Ptr) {
-		return Ptr.GetTime() > time && Ptr.GetTime() > 0;
-	});
+	//Apply latest state
+	GetOwner()->SetActorLocation(pastStates.Last().GetLocation());
+	GetOwner()->SetActorRotation(pastStates.Last().GetRotation());
+}
 
+void UTimeReversableComponent::OffsetTimeBy(float time)
+{
+	UE_LOG(LogTemp, Warning, TEXT("FIRST STATE BEFORE %f"), pastStates[0].GetTime());
 
-	return pastStates.Last();
+	//Parse registered states
+	for (int32 Index = 0; Index < pastStates.Num(); Index++)
+	{
+		pastStates[Index].SetTime(pastStates[Index].GetTime() + time);
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("FIRST STATE AFTER %f"), pastStates[0].GetTime());
 }

@@ -22,10 +22,15 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-	FTimeReversableStateStruct ReverseToTime(float time);
+	//Return to a previous state in time
+	void ReverseToTime(float time);
+
+	//Offset all pastStates by time
+	void OffsetTimeBy(float time);
 
 	//Array of observed Actors
 	FVector latestLocation;
 	
+	//
 	TArray<FTimeReversableStateStruct> pastStates;
 };

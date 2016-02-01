@@ -42,7 +42,13 @@ public:
 	APlayerController *PController;
 
 	//When did we start reversing
-	float reversingTimeStartAt;
+	float fTimeReversingStartAt;
+
+	//How much did we reverse time
+	float fTimeReversedCumulation;
+
+	//How much are we charging time
+	float fTimeCharged;
 
 	//Are we reversing time?
 	bool bReversingTime;

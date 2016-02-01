@@ -13,6 +13,7 @@ ATimeMachine::ATimeMachine()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	bReversingTime = false;
+	fTimeReversedCumulation = 0;
 }
 
 // Called when the game starts or when spawned
@@ -48,8 +49,11 @@ void ATimeMachine::BeginPlay()
 
 void ATimeMachine::ReverseTimeStart()
 {
+	UE_LOG(TimemachineLog, Error, TEXT("********************************************"));
+	UE_LOG(TimemachineLog, Error, TEXT("********************************************"));
 	//Store time we start reversing
-	reversingTimeStartAt = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+	fTimeReversingStartAt = GetWorld()->GetRealTimeSeconds();
+	fTimeCharged = 0;
 	//Pause Game
 	PController->SetPause(true);
 	//Start reversing time
@@ -58,8 +62,24 @@ void ATimeMachine::ReverseTimeStart()
 
 void ATimeMachine::ReverseTimeStop()
 {
+	//Stop Pause
 	PController->SetPause(false);
+	//Stop reversing time
 	bReversingTime = false;
+	//Increment cumulation
+	fTimeReversedCumulation += fTimeCharged;
+
+	UE_LOG(TimemachineLog, Error, TEXT("TIME REAL START %f"), fTimeReversingStartAt);
+	UE_LOG(TimemachineLog, Error, TEXT("TIME REAL CURRENT %f"), GetWorld()->GetRealTimeSeconds());
+	UE_LOG(TimemachineLog, Error, TEXT("TIME PLAY CURRENT %f"), GetWorld()->GetTimeSeconds());
+	UE_LOG(TimemachineLog, Warning, TEXT("TIME CHARGED %f"), fTimeCharged);
+
+	for (auto Itr(observedActors.CreateIterator()); Itr; Itr++)
+	{
+		//Get Component & Reverse it to time
+		(Cast<UTimeReversableComponent>((*Itr)->GetComponentByClass(UTimeReversableComponent::StaticClass())))
+			->OffsetTimeBy(fTimeCharged);
+	}
 }
 
 // Called every frame
@@ -68,18 +88,15 @@ void ATimeMachine::Tick( float DeltaTime )
 	Super::Tick( DeltaTime );
 
 	if (bReversingTime) {
-		float chargedTime = UGameplayStatics::GetRealTimeSeconds(GetWorld()) - reversingTimeStartAt;
-		//UE_LOG(LogTemp, Warning, TEXT("Reversing Time %f"), chargedTime);
+		fTimeCharged = GetWorld()->GetRealTimeSeconds() - fTimeReversingStartAt;
+		//UE_LOG(LogTemp, Warning, TEXT("CHARGED %f"), fTimeCharged);
 
 		for (auto Itr(observedActors.CreateIterator()); Itr; Itr++)
 		{
-			UTimeReversableComponent *TimeComponent = Cast<UTimeReversableComponent>((*Itr)->GetComponentByClass(UTimeReversableComponent::StaticClass()));
-			FTimeReversableStateStruct TimeState = TimeComponent->ReverseToTime(reversingTimeStartAt - chargedTime);
-			//UE_LOG(LogTemp, Warning, TEXT("Reversing Time %f"), chargedTime);
-			(*Itr)->SetActorLocation(TimeState.GetLocation());
+			//Get Component & Reverse it to time
+			(Cast<UTimeReversableComponent>((*Itr)->GetComponentByClass(UTimeReversableComponent::StaticClass())))
+				->ReverseToTime(GetWorld()->GetTimeSeconds() - fTimeCharged);
 		}
-
-		chargedTime = NULL;
 	}
 }
 
