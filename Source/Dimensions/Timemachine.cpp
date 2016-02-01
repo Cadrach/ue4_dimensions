@@ -23,12 +23,13 @@ void ATimeMachine::BeginPlay()
 	UE_LOG(TimemachineLog, Warning, TEXT("Timemachine Started"));
 
 	//Get Player Controller
-	APlayerController *PCOwner = Cast<APlayerController>(GetWorld()->GetFirstPlayerController());
+	PController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController());
 
 	//Listen to Input
-	PCOwner->InputComponent->BindAction("TimeMachine", IE_Pressed, this, &ATimeMachine::ReverseTimeStart);
-	PCOwner->InputComponent->BindAction("TimeMachine", IE_Released, this, &ATimeMachine::ReverseTimeStop);
-	EnableInput(PCOwner);
+	PController->InputComponent->BindAction("TimeMachine", IE_Pressed, this, &ATimeMachine::ReverseTimeStart);
+	PController->InputComponent->BindAction("TimeMachine", IE_Released, this, &ATimeMachine::ReverseTimeStop).bExecuteWhenPaused = true;
+	EnableInput(PController);
+	SetTickableWhenPaused(true);
 
 	//For each actor, check if correctly setup
 	for (auto Itr(observedActors.CreateIterator()); Itr; Itr++)
@@ -64,17 +65,17 @@ void ATimeMachine::BeginPlay()
 		newComponent = NULL;
 	}
 
-	PCOwner = NULL;
-
 }
 
 void ATimeMachine::ReverseTimeStart()
 {
+	PController->SetPause(true);
 	bReversingTime = true;
 }
 
 void ATimeMachine::ReverseTimeStop()
 {
+	PController->SetPause(false);
 	bReversingTime = false;
 }
 

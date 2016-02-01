@@ -38,6 +38,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	TArray<AActor*> observedActors;
 
+	//The Player Controller
+	APlayerController *PController;
+
 	//Are we reversing time?
 	bool bReversingTime;
 };
