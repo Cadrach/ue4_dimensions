@@ -40,6 +40,7 @@ void AMyPawnCpp::Tick( float DeltaTime )
 // Called to bind functionality to input
 void AMyPawnCpp::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
+	UE_LOG(LogTemp, Warning, TEXT("MYPAWN PLAYERINPUT"));
 	Super::SetupPlayerInputComponent(InputComponent);
 
 }

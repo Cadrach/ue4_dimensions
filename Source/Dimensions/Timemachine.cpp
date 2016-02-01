@@ -8,20 +8,29 @@
 DEFINE_LOG_CATEGORY(TimemachineLog);
 
 // Sets default values
-ATimemachine::ATimemachine()
+ATimeMachine::ATimeMachine()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	bReversingTime = false;
 }
 
 // Called when the game starts or when spawned
-void ATimemachine::BeginPlay()
+void ATimeMachine::BeginPlay()
 {
 	Super::BeginPlay();
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Timemachine Started");
 	UE_LOG(TimemachineLog, Warning, TEXT("Timemachine Started"));
-	
+
+	//Get Player Controller
+	APlayerController *PCOwner = Cast<APlayerController>(GetWorld()->GetFirstPlayerController());
+
+	//Listen to Input
+	PCOwner->InputComponent->BindAction("TimeMachine", IE_Pressed, this, &ATimeMachine::ReverseTimeStart);
+	PCOwner->InputComponent->BindAction("TimeMachine", IE_Released, this, &ATimeMachine::ReverseTimeStop);
+	EnableInput(PCOwner);
+
+	//For each actor, check if correctly setup
 	for (auto Itr(observedActors.CreateIterator()); Itr; Itr++)
 	{
 		if (!(*Itr)->IsValidLowLevel()) continue;
@@ -45,7 +54,7 @@ void ATimemachine::BeginPlay()
 
 		//newComponent->InitializeComponent();
 
-		
+
 
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, (*Itr)->GetName());
 
@@ -55,12 +64,28 @@ void ATimemachine::BeginPlay()
 		newComponent = NULL;
 	}
 
+	PCOwner = NULL;
+
+}
+
+void ATimeMachine::ReverseTimeStart()
+{
+	bReversingTime = true;
+}
+
+void ATimeMachine::ReverseTimeStop()
+{
+	bReversingTime = false;
 }
 
 // Called every frame
-void ATimemachine::Tick( float DeltaTime )
+void ATimeMachine::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
+
+	if (bReversingTime) {
+		UE_LOG(LogTemp, Warning, TEXT("Reversing Time"));
+	}
 
 	for (auto Itr(observedActors.CreateIterator()); Itr; Itr++)
 	{

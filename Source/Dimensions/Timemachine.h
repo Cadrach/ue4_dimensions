@@ -5,19 +5,19 @@
 #include "GameFramework/Actor.h"
 #include "Engine.h"
 #include "TimeReversableComponent.h"
-#include "Timemachine.generated.h"
+#include "TimeMachine.generated.h"
 
 //General Log
 DECLARE_LOG_CATEGORY_EXTERN(TimemachineLog, Log, All);
 
 UCLASS()
-class DIMENSIONS_API ATimemachine : public AActor
+class DIMENSIONS_API ATimeMachine : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ATimemachine();
+	ATimeMachine();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -25,7 +25,19 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
+	// Called to bind functionality to input
+	//virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+
+	//Start Reversing Time
+	void ReverseTimeStart();
+
+	//Stop Reversing Time
+	void ReverseTimeStop();
+
 	//Array of observed Actors
 	UPROPERTY(EditAnywhere)
 	TArray<AActor*> observedActors;
+
+	//Are we reversing time?
+	bool bReversingTime;
 };

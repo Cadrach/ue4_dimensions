@@ -36,7 +36,7 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 		//UE_LOG(LogTemp, Warning, TEXT("Timecomponent TICKING UNCHANGED LOCATION %s"), *(GetOwner()->GetName()));
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("Timecomponent TICKING NEW STATE %s, past states: %d"), *(GetOwner()->GetActorLocation()).ToString(), pastStates.Num());
+		//UE_LOG(LogTemp, Warning, TEXT("Timecomponent TICKING NEW STATE %s, past states: %d"), *(GetOwner()->GetActorLocation()).ToString(), pastStates.Num());
 		pastStates.Add(FTimeReversableStateStruct(GetOwner()->GetActorLocation(), GetOwner()->GetActorRotation(), DeltaTime));
 	}
 	latestLocation = GetOwner()->GetActorLocation();
