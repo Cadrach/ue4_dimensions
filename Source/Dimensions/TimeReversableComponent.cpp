@@ -32,7 +32,16 @@ void UTimeReversableComponent::BeginPlay()
 void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
-	//UE_LOG(LogTemp, Warning, TEXT("Timecomponent TICKING"));
+	if (GetOwner()->GetActorLocation().Equals(latestLocation)) {
+		//UE_LOG(LogTemp, Warning, TEXT("Timecomponent TICKING UNCHANGED LOCATION %s"), *(GetOwner()->GetName()));
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("Timecomponent TICKING NEW STATE %s, past states: %d"), *(GetOwner()->GetActorLocation()).ToString(), pastStates.Num());
+		pastStates.Add(FTimeReversableStateStruct(GetOwner()->GetActorLocation(), DeltaTime));
+	}
+	latestLocation = GetOwner()->GetActorLocation();
+
+
 	// ...
 }
 

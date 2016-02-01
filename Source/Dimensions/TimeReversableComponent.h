@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Components/ActorComponent.h"
+#include "TimeReversableStateStruct.h"
 #include "TimeReversableComponent.generated.h"
 
 
@@ -21,6 +22,8 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-		
+	//Array of observed Actors
+	FVector latestLocation;
 	
+	TArray<FTimeReversableStateStruct> pastStates;
 };
