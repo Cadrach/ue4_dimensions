@@ -23,7 +23,9 @@ void UTimeReversableComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("Timecomponent Started"));
-	// ...
+	
+	//Register Primitive component
+	primitiveComponent = (Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())));
 	
 }
 
@@ -40,7 +42,8 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 			FTimeReversableStateStruct(
 				GetOwner()->GetActorLocation(),
 				GetOwner()->GetActorRotation(),
-				GetOwner()->GetVelocity(),
+				primitiveComponent->GetPhysicsLinearVelocity(),
+				primitiveComponent->GetPhysicsAngularVelocity(),
 				GetWorld()->GetTimeSeconds()
 				)
 			);
@@ -68,9 +71,8 @@ void UTimeReversableComponent::ReverseToTime(float time)
 	//Apply latest state
 	GetOwner()->SetActorLocation(pastStates.Last().GetLocation());
 	GetOwner()->SetActorRotation(pastStates.Last().GetRotation());
-//	(Cast<UStaticMeshComponent> (GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())))->SetPhysicsAngularVelocity(pastStates.Last().GetVelocity());
-	(Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())))->SetPhysicsAngularVelocity(FVector(0,0,0));
-	(Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())))->SetPhysicsLinearVelocity(FVector(0, 0, 0));
+	primitiveComponent->SetPhysicsLinearVelocity(pastStates.Last().GetVelocityLinear());
+	primitiveComponent->SetPhysicsAngularVelocity(pastStates.Last().GetVelocityAngular());
 }
 
 void UTimeReversableComponent::OffsetTimeBy(float time)

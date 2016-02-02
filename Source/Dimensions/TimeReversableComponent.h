@@ -31,6 +31,9 @@ public:
 	//Array of observed Actors
 	FVector latestLocation;
 	
+	//Primitive Component to observe
+	UPrimitiveComponent* primitiveComponent;
+
 	//
 	TArray<FTimeReversableStateStruct> pastStates;
 };
