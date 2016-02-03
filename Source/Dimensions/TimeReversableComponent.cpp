@@ -33,7 +33,7 @@ void UTimeReversableComponent::BeginPlay()
 void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
-	if (GetOwner()->GetActorLocation().Equals(latestLocation)) {
+	if (GetOwner()->GetActorLocation().Equals(latestLocation) && GetOwner()->GetActorRotation().Equals(latestRotation)) {
 		//UE_LOG(LogTemp, Warning, TEXT("Timecomponent TICKING UNCHANGED LOCATION %s"), *(GetOwner()->GetName()));
 	}
 	else {
@@ -49,7 +49,7 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 			);
 	}
 	latestLocation = GetOwner()->GetActorLocation();
-
+	latestRotation = GetOwner()->GetActorRotation();
 
 	// ...
 }

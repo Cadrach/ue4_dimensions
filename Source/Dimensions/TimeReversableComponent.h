@@ -28,8 +28,11 @@ public:
 	//Offset all pastStates by time
 	void OffsetTimeBy(float time);
 
-	//Array of observed Actors
+	//Latest stored location of observed Actor
 	FVector latestLocation;
+
+	//Latest stored rotation of observed Actor
+	FRotator latestRotation;
 	
 	//Primitive Component to observe
 	UPrimitiveComponent* primitiveComponent;
