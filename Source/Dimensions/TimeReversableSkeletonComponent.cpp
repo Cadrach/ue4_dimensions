@@ -29,9 +29,15 @@ void UTimeReversableSkeletonComponent::TickComponent(float DeltaTime, ELevelTick
 		);
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("Skeleton name %s"), *skeletalComponent->GetName());
-		UE_LOG(LogTemp, Warning, TEXT("AnimInstance name %s"), *skeletalComponent->GetAnimInstance()->GetName());
-		//UE_LOG(LogTemp, Warning, TEXT("Time fraction %f"), *(*skeletalComponent->GetAnimInstance()->GetActiveMontageInstance()->GetNextSection()));
+		
+		//UE_LOG(LogTemp, Warning, TEXT("Skeleton name %s"), *skeletalComponent->GetName());
+		//UE_LOG(LogTemp, Warning, TEXT("AnimInstance name %s"), *skeletalComponent->GetAnimInstance()->GetName());
+
+		UAnimMontage *montage = Cast<ACharacter>(GetOwner())->GetCurrentMontage();
+		if (montage) {
+			//UE_LOG(LogTemp, Warning, TEXT("Time fraction %s"), *montage->GetName());
+		}
+
 	}
 
 }
