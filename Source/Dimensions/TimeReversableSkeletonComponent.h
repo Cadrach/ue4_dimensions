@@ -21,8 +21,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	void ReverseToTime(float time) override;
+
 	//The skeleton component
 	USkeletalMeshComponent* skeletalComponent;
 	
-	
+	FAnimNode_StateMachine* GetStateMachineInstance(int32 MachineIndex);
 };

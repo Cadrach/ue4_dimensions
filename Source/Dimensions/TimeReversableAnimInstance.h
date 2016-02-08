@@ -15,9 +15,12 @@ class DIMENSIONS_API UTimeReversableAnimInstance : public UAnimInstance
 	GENERATED_BODY()
 	
 public:
+
 	virtual void NativeInitializeAnimation() override;
 
 	virtual void NativeUpdateAnimation(float DeltaTimeX) override;
 	
 	virtual bool NativeEvaluateAnimation(FPoseContext& Output) override;
+
+	FPoseContext* lastOutput;
 };

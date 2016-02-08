@@ -23,7 +23,7 @@ public:
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
 	//Return to a previous state in time
-	void ReverseToTime(float time);
+	virtual void ReverseToTime(float time);
 
 	//Offset all pastStates by time
 	void OffsetTimeBy(float time);
