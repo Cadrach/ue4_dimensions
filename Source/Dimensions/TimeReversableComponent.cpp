@@ -73,6 +73,8 @@ void UTimeReversableComponent::ReverseToTime(float time)
 	GetOwner()->SetActorRotation(pastStates.Last().GetRotation());
 	primitiveComponent->SetPhysicsLinearVelocity(pastStates.Last().GetVelocityLinear());
 	primitiveComponent->SetPhysicsAngularVelocity(pastStates.Last().GetVelocityAngular());
+	latestLocation = GetOwner()->GetActorLocation();
+	latestRotation = GetOwner()->GetActorRotation();
 }
 
 void UTimeReversableComponent::OffsetTimeBy(float time)

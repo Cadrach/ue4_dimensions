@@ -40,7 +40,7 @@ void ATimeMachine::BeginPlay()
 		if (!(*Itr)->IsValidLowLevel()) continue;
 		UTimeReversableComponent *newComponent = Cast<UTimeReversableComponent>((*Itr)->GetComponentByClass(UTimeReversableComponent::StaticClass()));
 		if (!newComponent) {
-			UE_LOG(TimemachineLog, Error, TEXT("NO COMPONENT PRESENT %s"), *(*Itr)->GetName());
+			UE_LOG(TimemachineLog, Fatal, TEXT("UTimeReversableComponent NOT PRESENT FOR %s"), *(*Itr)->GetName());
 		}
 		newComponent = NULL;
 	}
