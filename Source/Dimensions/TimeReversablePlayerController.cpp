@@ -38,8 +38,8 @@ void ATimeReversablePlayerController::ReverseTimeStop()
 void ATimeReversablePlayerController::UpdateRotation(float DeltaSeconds) {
 	Super::UpdateRotation(DeltaSeconds);
 	if (IsPaused()) {
-		//UE_LOG(TimemachineLog, Error, TEXT("PC => ROTATOR %s"), *(newComponent->latestRotation).ToString());
-		ClientSetRotation(pawnTimeReversableComponent->latestRotation, false);
-
+		UE_LOG(TimemachineLog, Error, TEXT("PC => ROTATOR %s"), *(pawnTimeReversableComponent->latestRotation).ToString());
+		ClientSetRotation(pawnTimeReversableComponent->latestRotation, true);
+		UE_LOG(TimemachineLog, Error, TEXT("PC => PRIMITIVE NAME %s"), *(pawnTimeReversableComponent->primitiveComponent->GetName()));
 	}
 }

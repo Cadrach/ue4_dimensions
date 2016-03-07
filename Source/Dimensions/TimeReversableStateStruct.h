@@ -63,4 +63,8 @@ struct FTimeReversableStateStruct
 	void SetTime(float newTime) {
 		time = newTime;
 	}
+
+	void SetRotation(FRotator newRotation) {
+		rotation = newRotation;
+	}
 };  //Always remember this ;  at the end! You will get odd compile errors otherwise

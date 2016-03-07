@@ -34,6 +34,9 @@ public:
 	//Latest stored rotation of observed Actor
 	FRotator latestRotation;
 	
+	UPROPERTY(EditAnywhere)
+	UClass* primitiveClass;
+
 	//Primitive Component to observe
 	UPrimitiveComponent* primitiveComponent;
 

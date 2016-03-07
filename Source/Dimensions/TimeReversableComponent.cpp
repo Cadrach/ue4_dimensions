@@ -22,10 +22,18 @@ UTimeReversableComponent::UTimeReversableComponent()
 void UTimeReversableComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("Timecomponent Started"));
 	
+	if ( ! primitiveClass) {
+		primitiveClass = UStaticMeshComponent::StaticClass();
+	}
+
 	//Register Primitive component
-	primitiveComponent = (Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())));
+	primitiveComponent = (Cast<UPrimitiveComponent>(GetOwner()->GetComponentByClass(primitiveClass)));
+	UE_LOG(LogTemp, Warning, TEXT("Timecomponent Started %s => %s [%s]"), 
+		*GetOwner()->GetName(),
+		*primitiveComponent->GetName(),
+		*GetOwner()->GetComponentByClass(primitiveClass)->GetClass()->GetFName().ToString()
+		);
 	
 }
 
