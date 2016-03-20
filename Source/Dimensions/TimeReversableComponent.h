@@ -35,6 +35,7 @@ public:
 	FRotator latestRotation;
 	
 	//Primitive Component to observe
+	UPROPERTY(BlueprintReadWrite)
 	UPrimitiveComponent* primitiveComponent;
 
 	//

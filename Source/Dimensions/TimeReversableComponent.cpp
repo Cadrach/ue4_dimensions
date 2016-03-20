@@ -24,8 +24,10 @@ void UTimeReversableComponent::BeginPlay()
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("Timecomponent Started"));
 	
-	//Register Primitive component
-	primitiveComponent = (Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())));
+	//Register automatic Primitive component, if not provided
+	if ( ! primitiveComponent) {
+		primitiveComponent = (Cast<UStaticMeshComponent>(GetOwner()->GetComponentByClass(UStaticMeshComponent::StaticClass())));
+	}
 	
 }
 
@@ -41,7 +43,7 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 		pastStates.Add(
 			FTimeReversableStateStruct(
 				GetOwner()->GetActorLocation(),
-				GetOwner()->GetActorRotation(),
+				primitiveComponent->GetComponentRotation(),
 				primitiveComponent->GetPhysicsLinearVelocity(),
 				primitiveComponent->GetPhysicsAngularVelocity(),
 				GetWorld()->GetTimeSeconds()
@@ -49,7 +51,7 @@ void UTimeReversableComponent::TickComponent( float DeltaTime, ELevelTick TickTy
 			);
 	}
 	latestLocation = GetOwner()->GetActorLocation();
-	latestRotation = GetOwner()->GetActorRotation();
+	latestRotation = primitiveComponent->GetComponentRotation();
 
 	// ...
 }
