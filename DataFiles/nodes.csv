@@ -8,3 +8,4 @@ id,name,x,y,z,origin,level
 7,NOEUD 7,600,300,0,8,Banquise
 8,NOEUD 8,600,600,0,6,Banquise
 9,NOEUD 9,0,600,0,7,Banquise
+10,NOEUD 10,0,2000,0,7,Banquise
