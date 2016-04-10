@@ -1,11 +1,11 @@
 id,name,x,y,z,origin,level
 1,NOEUD 1,0,0,0,,Hangar
-2,NOEUD 2,0,300,0,1,Banquise
+2,NOEUD 2,0,300,0,1,RA_Test
 3,NOEUD 3,300,0,0,2,Hangar
-4,NOEUD 4,300,300,0,5,Banquise
-5,NOEUD 5,300,600,0,3,Banquise
-6,NOEUD 6,600,0,0,4,Banquise
-7,NOEUD 7,600,300,0,8,Banquise
-8,NOEUD 8,600,600,0,6,Banquise
-9,NOEUD 9,0,600,0,7,Banquise
-10,NOEUD 10,0,2000,0,7,Banquise
+4,NOEUD 4,300,300,0,5,RA_Test
+5,NOEUD 5,300,600,0,3,RA_Test
+6,NOEUD 6,600,0,0,4,RA_Test
+7,NOEUD 7,600,300,0,8,RA_Test
+8,NOEUD 8,600,600,0,6,RA_Test
+9,NOEUD 9,0,600,0,7,RA_Test
+10,NOEUD 10,0,2000,0,7,RA_Test
