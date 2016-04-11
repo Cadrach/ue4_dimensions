@@ -1,0 +1,22 @@
+{
+  "name": "Dimensions",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Cadrach/ue4_dimensions",
+  "authors": [
+    "Cadrach <cadrach@gmail.com>"
+  ],
+  "main": "application.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.3",
+    "vis": "~4.16.0"
+  }
+}
