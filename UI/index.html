@@ -1,23 +1,27 @@
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="dimensions">
 <head>
   <meta charset="utf-8">
   <title>Dimensions</title>
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="app.css">
   <script src="bower_components/angular/angular.js"></script>
+  <script src="application.js"></script>
+  <script src="controllers.js"></script>
 </head>
 <body>
 
-  <p>Nothing here {{'yet' + '!'}}</p>
+  <p ng-controller="MainCtrl">{{testValue}}</p>
+
+  <h1>HELLO WORLD</h1>
+  <script type="text/javascript">
+      function doThing(test){
+          document.write(test)
+          if(typeof blu_event === 'function') {
+//              blu_event('click_me', 'hello there!')
+          }
+      }
+      doThing("FIRST LINE");
+  </script>
 
 </body>
 </html>
-
-<h1>HELLO WORLD</h1>
-<script type="text/javascript">
-function doThing(test){
-	document.write(test)
-	blu_event('click_me','hello there!')
-}
-doThing("FIRST LINE");
-</script>

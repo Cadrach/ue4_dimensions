@@ -1,23 +1,18 @@
 'use strict';
 
 /* App Module */
-
-var module = angular.module('dimensions', [
-  'dimensions'
+var dimensionsApp = angular.module('dimensions', [
+    'dimensionsControllers'
 ]);
 
-module.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/phones', {
-        templateUrl: 'partials/phone-list.html',
-        controller: 'PhoneListCtrl'
-      }).
-      when('/phones/:phoneId', {
-        templateUrl: 'partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
-      }).
-      otherwise({
-        redirectTo: '/phones'
-      });
-  }]);
+// module.config(['$routeProvider',
+//   function($routeProvider) {
+//     $routeProvider.
+//       when('/', {
+//         templateUrl: 'partials/phone-list.html',
+//         controller: 'PhoneListCtrl'
+//       }).
+//       otherwise({
+//         redirectTo: '/'
+//       });
+//   }]);
