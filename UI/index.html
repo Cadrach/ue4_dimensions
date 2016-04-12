@@ -3,25 +3,29 @@
 <head>
   <meta charset="utf-8">
   <title>Dimensions</title>
-  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/vis/dist/vis.css">
+  <link rel="stylesheet" type="text/css" href="app.css">
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/vis/dist/vis.js"></script>
   <script src="application.js"></script>
   <script src="controllers.js"></script>
 </head>
-<body>
+<body ng-controller="MainCtrl">
 
-  <p ng-controller="MainCtrl">{{testValue}}</p>
+  <!--<p>{{testValue}}</p>-->
 
-  <h1>HELLO WORLD</h1>
-  <script type="text/javascript">
-      function doThing(test){
-          document.write(test)
-          if(typeof blu_event === 'function') {
-//              blu_event('click_me', 'hello there!')
-          }
-      }
-      doThing("FIRST LINE");
-  </script>
+  <div id="network"></div>
+
+  <!--<h1>HELLO WORLD</h1>-->
+  <!--<script type="text/javascript">-->
+      <!--function doThing(test){-->
+          <!--document.write(test)-->
+          <!--if(typeof blu_event === 'function') {-->
+<!--//              blu_event('click_me', 'hello there!')-->
+          <!--}-->
+      <!--}-->
+      <!--doThing("FIRST LINE");-->
+  <!--</script>-->
 
 </body>
 </html>
