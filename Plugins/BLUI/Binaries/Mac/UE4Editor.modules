@@ -1,9 +1,0 @@
-{
-	"Changelist" : 2934540,
-	"BuildId" : "",
-	"Modules" : 
-	{
-		"BluLoader" : "UE4Editor-BluLoader.dylib",
-		"Blu" : "UE4Editor-Blu.dylib"
-	}
-}
