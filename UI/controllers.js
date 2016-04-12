@@ -141,4 +141,15 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
         };
         var network = new vis.Network(container, data, options);
 
+        console.log(network.getPositions([9]));
+
+        network.moveTo({
+            position: network.getPositions([9])[9],    // position to animate to (Numbers)
+            scale: 1.5,              // scale to animate to  (Number)
+            //offset: {x:x, y:y},      // offset from the center in DOM pixels (Numbers)
+            animation: {             // animation object, can also be Boolean
+                duration: 1000,                 // animation duration in milliseconds (Number)
+                easingFunction: "easeInOutQuad" // Animation easing function, available are:
+            }                                   // linear, easeInQuad, easeOutQuad, easeInOutQuad,
+        });
     }]);
