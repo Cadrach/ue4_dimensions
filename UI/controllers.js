@@ -139,12 +139,13 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
                     roundness: 0.5
                 },
                 width: 15,
+                color: '#000',
                 shadow: {
                     enabled: true,
                     x: 0,
                     y: 0,
                     size: 15,
-                    color: 'rgba(0,0,0,0.5)'
+                    color: 'rgba(255,0,0,0.5)'
                 } //can be object
             },
             layout: {
@@ -157,7 +158,10 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
 
         //Create image for each nodes
         _.each(data.nodes, function(node){
-            node.html = jQuery('<img src="img/giphy.gif" width="60px"/>');
+            node.html = jQuery('<div class="node animated infinite pulse"></div>');
+            node.html.css({
+                'animation-delay': (Math.random()*2+0.5) + 's' //between 0.5 & 2
+            })
             angular.element('body').append(node.html);
         })
 
@@ -177,7 +181,7 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
 
 
         network.on('afterDrawing', function(){
-            console.log(network.getPositions());
+//            console.log(network.getPositions());
             _.each(network.getPositions(), function(position, nodeId){
                 var domPosition = network.canvasToDOM(position);
                 data.nodes[nodeId].html.css({
