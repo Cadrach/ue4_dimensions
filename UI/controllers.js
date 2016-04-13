@@ -76,7 +76,8 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
             ],
             "edges" : [{
                 "from" : 0,
-                "to" : 1
+                "to" : 1,
+                width: 20
             }, {
                 "from" : 0,
                 "to" : 6
@@ -125,12 +126,26 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
 
 
         var options = {
+            nodes:{
+                borderWidth: 5,
+//                font: {size: 40},
+                shape: 'circle',
+                image: 'img/giphy.gif'
+            },
             edges: {
                 smooth: {
                     type: 'cubicBezier',
                     forceDirection: 'vertical',
-                    roundness: 0.4
-                }
+                    roundness: 0.5
+                },
+                width: 15,
+                shadow: {
+                    enabled: true,
+                    x: 0,
+                    y: 0,
+                    size: 15,
+                    color: 'rgba(0,0,0,0.5)'
+                } //can be object
             },
             layout: {
                 hierarchical: {
@@ -139,6 +154,13 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
             },
             physics:false
         };
+
+        //Create image for each nodes
+        _.each(data.nodes, function(node){
+            node.html = jQuery('<img src="img/giphy.gif" width="60px"/>');
+            angular.element('body').append(node.html);
+        })
+
         var network = new vis.Network(container, data, options);
 
         console.log(network.getPositions([9]));
@@ -152,4 +174,17 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
                 easingFunction: "easeInOutQuad" // Animation easing function, available are:
             }                                   // linear, easeInQuad, easeOutQuad, easeInOutQuad,
         });
+
+
+        network.on('afterDrawing', function(){
+            console.log(network.getPositions());
+            _.each(network.getPositions(), function(position, nodeId){
+                var domPosition = network.canvasToDOM(position);
+                data.nodes[nodeId].html.css({
+                    left: domPosition.x,
+                    top: domPosition.y,
+                    position: 'absolute'
+                });
+            })
+        })
     }]);
