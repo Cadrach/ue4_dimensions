@@ -7,9 +7,9 @@ html{
     height: 100%;
 }
 body{
-    border: 2px solid red;
-    width: calc(100vw - 4px);
-    height: calc(100vh - 4px);
+    //border: 2px solid red;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
 }
 #network{

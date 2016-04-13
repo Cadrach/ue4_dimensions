@@ -7,9 +7,8 @@ html {
   height: 100%; }
 
 body {
-  border: 2px solid red;
-  width: calc(100vw - 4px);
-  height: calc(100vh - 4px);
+  width: 100vw;
+  height: 100vh;
   overflow: hidden; }
 
 #network {
@@ -38,7 +37,6 @@ div.node {
 
   100% {
     background-position: 0% 38%; } }
-
 @-moz-keyframes AnimationName {
   0% {
     background-position: 0% 38%; }
@@ -48,7 +46,6 @@ div.node {
 
   100% {
     background-position: 0% 38%; } }
-
 @keyframes AnimationName {
   0% {
     background-position: 0% 38%; }

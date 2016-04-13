@@ -75,13 +75,16 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
             }
             ],
             "edges" : [{
+                id: 1,
                 "from" : 0,
                 "to" : 1,
                 width: 20
             }, {
+                id: 2,
                 "from" : 0,
                 "to" : 6
             }, {
+                id: 3,
                 "from" : 0,
                 "to" : 13
             }, {
@@ -128,6 +131,7 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
         var options = {
             nodes:{
                 borderWidth: 5,
+                fixed: true,
 //                font: {size: 40},
                 shape: 'circle',
                 image: 'img/giphy.gif'
@@ -167,19 +171,18 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
 
         var network = new vis.Network(container, data, options);
 
-        console.log(network.getPositions([9]));
+        //
+        // network.moveTo({
+        //     position: network.getPositions([9])[9],    // position to animate to (Numbers)
+        //     scale: 1.5,              // scale to animate to  (Number)
+        //     //offset: {x:x, y:y},      // offset from the center in DOM pixels (Numbers)
+        //     animation: {             // animation object, can also be Boolean
+        //         duration: 1000,                 // animation duration in milliseconds (Number)
+        //         easingFunction: "easeInOutQuad" // Animation easing function, available are:
+        //     }                                   // linear, easeInQuad, easeOutQuad, easeInOutQuad,
+        // });
 
-        network.moveTo({
-            position: network.getPositions([9])[9],    // position to animate to (Numbers)
-            scale: 1.5,              // scale to animate to  (Number)
-            //offset: {x:x, y:y},      // offset from the center in DOM pixels (Numbers)
-            animation: {             // animation object, can also be Boolean
-                duration: 1000,                 // animation duration in milliseconds (Number)
-                easingFunction: "easeInOutQuad" // Animation easing function, available are:
-            }                                   // linear, easeInQuad, easeOutQuad, easeInOutQuad,
-        });
-
-
+console.log(network)
         network.on('afterDrawing', function(){
 //            console.log(network.getPositions());
             _.each(network.getPositions(), function(position, nodeId){
@@ -190,5 +193,16 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
                     position: 'absolute'
                 });
             })
+
+            // network.redraw()
+            console.log(network.canvas.frame.canvas.getContext("2d"));
         })
+
+
+
+        // network.animateTraffic([
+        //     {edge:1},
+        //     {edge:2, trafficSize:2},
+        //     {edge:3, trafficSize:5, isBackward: true}
+        // ]);
     }]);
