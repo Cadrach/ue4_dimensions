@@ -15,6 +15,7 @@ body{
 #network{
     height: 100%;
     width: 100%;
+    background: rgba(0, 0, 255, 0.35);
 }
 div.node{
 
@@ -23,7 +24,10 @@ div.node{
     border-radius: 60px;
     margin-top: -30px;
     margin-left: -30px;
-    pointer-events: none;
+    color: #fff;
+    font-size: 11px;
+    text-align: center;
+    //pointer-events: none;
 
 //        background-image: url('img/giphy.gif');
         background: black;

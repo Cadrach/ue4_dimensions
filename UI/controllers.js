@@ -15,7 +15,8 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
             "nodes" : [{
                 "id" : 0,
                 "label" : "0",
-                "level" : 0
+                "level" : 0,
+                "option_level": 'Hangar',
             }, {
                 "id" : 1,
                 "label" : "1",
@@ -166,6 +167,13 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
             node.html.css({
                 'animation-delay': (Math.random()*2+0.5) + 's' //between 0.5 & 2
             })
+            node.html.click(function(){
+                // console.log("nodeSelected", node.id)
+                // document.write('Node Selected:' + node.id)
+                if(window.blu_event){
+                    blu_event("nodeSelected", node.id+'');
+                }
+            })
             angular.element('body').append(node.html);
         })
 
@@ -182,7 +190,17 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
         //     }                                   // linear, easeInQuad, easeOutQuad, easeInOutQuad,
         // });
 
-console.log(network)
+        // network.on('click', function(data){
+        //     //blu_event("nodeSelected", data.nodes[0]);
+        //     if(window.blu_event){
+        //         blu_event('VIS Clicked', ": X=" + data.event.center.x + ', Y=' + data.event.center.y);
+        //     }
+        //     else{
+        //         console.log(data.event.center)
+        //     }
+        //
+        // })
+
         network.on('afterDrawing', function(){
 //            console.log(network.getPositions());
             _.each(network.getPositions(), function(position, nodeId){
@@ -192,17 +210,16 @@ console.log(network)
                     top: domPosition.y,
                     position: 'absolute'
                 });
+                // data.nodes[nodeId].html.html(Math.round(domPosition.x) + ',' + Math.round(domPosition.y) + '<br/>' + nodeId)
             })
 
             // network.redraw()
-            console.log(network.canvas.frame.canvas.getContext("2d"));
+            // console.log(network.canvas.frame.canvas.getContext("2d"));
         })
 
+        jQuery(document).click(function(event){
+            $scope.debug = event;
+        })
 
-
-        // network.animateTraffic([
-        //     {edge:1},
-        //     {edge:2, trafficSize:2},
-        //     {edge:3, trafficSize:5, isBackward: true}
-        // ]);
+        $scope.debug = jQuery(window).width() + 'x' + jQuery(window).height();
     }]);

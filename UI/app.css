@@ -13,7 +13,8 @@ body {
 
 #network {
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  background: rgba(0, 0, 255, 0.35); }
 
 div.node {
   width: 40px;
@@ -21,7 +22,9 @@ div.node {
   border-radius: 60px;
   margin-top: -30px;
   margin-left: -30px;
-  pointer-events: none;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
   background: black;
   border: 10px solid rgba(255, 0, 0, 0.25);
   background-position: center;
