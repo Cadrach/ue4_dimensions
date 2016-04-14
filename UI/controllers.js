@@ -8,218 +8,160 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
     function($scope) {
         $scope.testValue = "WORKING";
 
+        var cy = cytoscape({
+            container: document.getElementById('network'),
 
-        // create a network
-        var container = document.getElementById('network');
-        var data = {
-            "nodes" : [{
-                "id" : 0,
-                "label" : "0",
-                "level" : 0,
-                "option_level": 'Hangar',
-            }, {
-                "id" : 1,
-                "label" : "1",
-                "level" : 1
-            }, {
-                "id" : 2,
-                "label" : "2",
-                "level" : 3
-            }, {
-                "id" : 3,
-                "label" : "3",
-                "level" : 4
-            }, {
-                "id" : 4,
-                "label" : "4",
-                "level" : 4
-            }, {
-                "id" : 5,
-                "label" : "5",
-                "level" : 5
-            }, {
-                "id" : 6,
-                "label" : "6",
-                "level" : 1
-            }, {
-                "id" : 7,
-                "label" : "7",
-                "level" : 2
-            }, {
-                "id" : 8,
-                "label" : "8",
-                "level" : 4
-            }, {
-                "id" : 9,
-                "label" : "9",
-                "level" : 4
-            }, {
-                "id" : 10,
-                "label" : "10",
-                "level" : 2
-            }, {
-                "id" : 11,
-                "label" : "11",
-                "level" : 1
-            }, {
-                "id" : 12,
-                "label" : "12",
-                "level" : 2
-            }, {
-                "id" : 13,
-                "label" : "13",
-                "level" : 1
-            }, {
-                "id" : 14,
-                "label" : "14",
-                "level" : 5
+            boxSelectionEnabled: false,
+            autounselectify: true,
+
+            style: cytoscape.stylesheet()
+                .selector('node')
+                .css({
+                    // 'content': 'data(id)'
+                    'background-color': '#000',
+                    'height': 30,
+                    'width': 30,
+                    'shadow-blur': 30,
+                    'shadow-opacity': .75,
+                    'shadow-color': '#FF0000',
+                    'shadow-offset-x': 0,
+                    'shadow-offset-y': 0,
+                })
+                .selector('edge')
+                .css({
+                    'curve-style': 'unbundled-bezier',
+                    'control-point-distances': '0 0',
+                    'control-point-weights': '0.25 0.75',
+                    'target-arrow-color': '#000',
+                    'target-arrow-shape': 'none',
+
+                    'width': 5,
+                    'line-color': '#000',
+
+                    'shadow-blur': 20,
+                    'shadow-opacity': .75,
+                    'shadow-color': '#FF0000',
+                    'shadow-offset-x': 1,
+                    'shadow-offset-y': 0,
+                // })
+                // .selector('.flow')
+                // .css({
+                //     // 'background-color': '#61bffc',
+                //     // 'line-color': '#61bffc',
+                //     // 'target-arrow-color': '#61bffc',
+                //     'control-point-distances': '30 -30',
+                //     'transition-property': 'control-point-distances',
+                //     'transition-duration': '5s',
+                //     'transition-timing-function': 'ease-out-quad',
+                // })
+                // .selector('.flowBack')
+                // .css({
+                //     // 'background-color': '#61bffc',
+                //     // 'line-color': '#61bffc',
+                //     // 'target-arrow-color': '#61bffc',
+                //     'control-point-distances': '-30 30',
+                //     'transition-property': 'control-point-distances',
+                //     'transition-duration': '5s',
+                //     'transition-timing-function': 'ease-out-quad',
+                }),
+
+            elements: {
+                nodes: [
+                    {data: {id : 0, label : 0, level : 0, option_level: 'Hangar'}},
+                    {data: {id : 1, label : 1, level : 1}},
+                    {data: {id : 2, label : 2, level : 3}},
+                    {data: {id : 3, label : 3, level : 4}},
+                    {data: {id : 4, label : 4, level : 4}},
+                    {data: {id : 5, label : 5, level : 5}},
+                    {data: {id : 6, label : 6, level : 1}},
+                    {data: {id : 7, label : 7, level : 2}},
+                    {data: {id : 8, label : 8, level : 4}},
+                    {data: {id : 9, label : 9, level : 4}},
+                    {data: {id : 10, label : 10, level : 2}},
+                    {data: {id : 11, label : 11, level : 1}},
+                    {data: {id : 12, label : 12, level : 2}},
+                    {data: {id : 13, label : 13, level : 1}},
+                    {data: {id : 14, label : 14, level : 5}},
+                ],
+
+                edges: [
+                    {data: {weight: 1, source: 0, target: 1}},
+                    {data: {weight: 2, source: 0, target: 6}},
+                    {data: {weight: 3, source: 0, target: 13}},
+                    {data: {weight: 4, source: 0, target: 11}},
+                    {data: {weight: 5, source: 1, target: 2}},
+                    {data: {weight: 6, source: 2, target: 3}},
+                    {data: {weight: 7, source: 2, target: 4}},
+                    {data: {weight: 8, source: 3, target: 5}},
+                    {data: {weight: 9, source: 1, target: 10}},
+                    {data: {weight: 10, source: 1, target: 7}},
+                    {data: {weight: 11, source: 2, target: 8}},
+                    {data: {weight: 12, source: 2, target: 9}},
+                    {data: {weight: 13, source: 3, target: 14}},
+                    {data: {weight: 14, source: 1, target: 12}},
+                    {data: {weight: 15, source: 13, target: 12}}
+                ]
+            },
+
+            layout: {
+                name: 'dagre',
+                nodeSep: 10, // the separation between adjacent nodes in the same rank
+                edgeSep: -10, // the separation between adjacent edges in the same rank
+                rankSep: undefined, // the separation between adjacent nodes in the same rank
+                rankDir: 'BT', // 'TB' for top to bottom flow, 'LR' for left to right
+                minLen: function( edge ){ return 1; }, // number of ranks to keep between the source and target of the edge
+                edgeWeight: function( edge ){ return 1; }, // higher weight edges are generally made shorter and straighter than lower weight edges
+                // roots: '#0',
+                // padding: 10
             }
-            ],
-            "edges" : [{
-                id: 1,
-                "from" : 0,
-                "to" : 1,
-                width: 20
-            }, {
-                id: 2,
-                "from" : 0,
-                "to" : 6
-            }, {
-                id: 3,
-                "from" : 0,
-                "to" : 13
-            }, {
-                "from" : 0,
-                "to" : 11
-            }, {
-                "from" : 1,
-                "to" : 2
-            }, {
-                "from" : 2,
-                "to" : 3
-            }, {
-                "from" : 2,
-                "to" : 4
-            }, {
-                "from" : 3,
-                "to" : 5
-            }, {
-                "from" : 1,
-                "to" : 10
-            }, {
-                "from" : 1,
-                "to" : 7
-            }, {
-                "from" : 2,
-                "to" : 8
-            }, {
-                "from" : 2,
-                "to" : 9
-            }, {
-                "from" : 3,
-                "to" : 14
-            }, {
-                "from" : 1,
-                "to" : 12
-            }, {
-                "from" : 13,
-                "to" : 12
-            }
-            ]
+        });
+
+        var pathes = cy.elements().bfs('#0', function(){}, true).path;
+
+        // function flow(){
+        //     pathes.animate({
+        //         style: {'control-point-distances': '30 -30',},
+        //         position: { x: 100, y: 100 },
+        //         // 'transition-property': 'control-point-distances',
+        //         // 'transition-duration': '5s',
+        //         // 'transition-timing-function': 'ease-out-quad',
+        //     }, {duration: 5000})
+        // }
+        //
+        // flow();
+        console.log(cy.edges());
+        $scope.flow = function (cycle){
+            var cycles = [
+                '30 0',
+                '0 0',
+                '-30 0',
+                '0 0'
+            ];
+            var duration = 5000;
+            console.log('CYCLE', cycle, cycles[cycle])
+            cy.edges().animate({
+                style: { 'control-point-distances': cycles[cycle]},
+                // style: { 'control-point-weights': value ? '0 1':'1 0'},
+                queue: true,
+                // easing: 'ease',
+                duration: duration
+            });
+            setTimeout(function(){$scope.flow((cycle+1)%cycles.length)}, duration)
         }
 
+        $scope.flow(0);
+    // console.log(pathes);
+    //     var i = 0;
+    //     var highlightNextEle = function(){
+    //         if( i < pathes.length ){
+    //             pathes[i].addClass('highlighted');
+    //
+    //             i++;
+    //             setTimeout(highlightNextEle, 1000);
+    //         }
+    //     };
 
-        var options = {
-            nodes:{
-                borderWidth: 5,
-                fixed: true,
-//                font: {size: 40},
-                shape: 'circle',
-                image: 'img/giphy.gif'
-            },
-            edges: {
-                smooth: {
-                    type: 'cubicBezier',
-                    forceDirection: 'vertical',
-                    roundness: 0.5
-                },
-                width: 15,
-                color: '#000',
-                shadow: {
-                    enabled: true,
-                    x: 0,
-                    y: 0,
-                    size: 15,
-                    color: 'rgba(255,0,0,0.5)'
-                } //can be object
-            },
-            layout: {
-                hierarchical: {
-                    direction: 'DU'
-                }
-            },
-            physics:false
-        };
+// kick off first highlight
+//         highlightNextEle();
 
-        //Create image for each nodes
-        _.each(data.nodes, function(node){
-            node.html = jQuery('<div class="node animated infinite pulse"></div>');
-            node.html.css({
-                'animation-delay': (Math.random()*2+0.5) + 's' //between 0.5 & 2
-            })
-            node.html.click(function(){
-                // console.log("nodeSelected", node.id)
-                // document.write('Node Selected:' + node.id)
-                if(window.blu_event){
-                    blu_event("nodeSelected", node.id+'');
-                }
-            })
-            angular.element('body').append(node.html);
-        })
-
-        var network = new vis.Network(container, data, options);
-
-        //
-        // network.moveTo({
-        //     position: network.getPositions([9])[9],    // position to animate to (Numbers)
-        //     scale: 1.5,              // scale to animate to  (Number)
-        //     //offset: {x:x, y:y},      // offset from the center in DOM pixels (Numbers)
-        //     animation: {             // animation object, can also be Boolean
-        //         duration: 1000,                 // animation duration in milliseconds (Number)
-        //         easingFunction: "easeInOutQuad" // Animation easing function, available are:
-        //     }                                   // linear, easeInQuad, easeOutQuad, easeInOutQuad,
-        // });
-
-        // network.on('click', function(data){
-        //     //blu_event("nodeSelected", data.nodes[0]);
-        //     if(window.blu_event){
-        //         blu_event('VIS Clicked', ": X=" + data.event.center.x + ', Y=' + data.event.center.y);
-        //     }
-        //     else{
-        //         console.log(data.event.center)
-        //     }
-        //
-        // })
-
-        network.on('afterDrawing', function(){
-//            console.log(network.getPositions());
-            _.each(network.getPositions(), function(position, nodeId){
-                var domPosition = network.canvasToDOM(position);
-                data.nodes[nodeId].html.css({
-                    left: domPosition.x,
-                    top: domPosition.y,
-                    position: 'absolute'
-                });
-                // data.nodes[nodeId].html.html(Math.round(domPosition.x) + ',' + Math.round(domPosition.y) + '<br/>' + nodeId)
-            })
-
-            // network.redraw()
-            // console.log(network.canvas.frame.canvas.getContext("2d"));
-        })
-
-        jQuery(document).click(function(event){
-            $scope.debug = event;
-        })
-
-        $scope.debug = jQuery(window).width() + 'x' + jQuery(window).height();
     }]);
