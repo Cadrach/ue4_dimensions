@@ -20,6 +20,7 @@
     "vis": "~4.16.0",
     "underscore": "~1.8.3",
     "jquery": "~2.2.3",
-    "animate.css": "~3.5.1"
+    "animate.css": "~3.5.1",
+    "cytoscape": "~2.6.8"
   }
 }

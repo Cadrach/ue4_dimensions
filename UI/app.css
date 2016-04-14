@@ -13,8 +13,7 @@ body {
 
 #network {
   height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 255, 0.35); }
+  width: 100%; }
 
 div.node {
   width: 40px;
@@ -25,7 +24,7 @@ div.node {
   color: #fff;
   font-size: 11px;
   text-align: center;
-  background: black;
+  background-image: url("img/giphy8.gif");
   border: 10px solid rgba(255, 0, 0, 0.25);
   background-position: center;
   background-size: 70px;
@@ -40,6 +39,7 @@ div.node {
 
   100% {
     background-position: 0% 38%; } }
+
 @-moz-keyframes AnimationName {
   0% {
     background-position: 0% 38%; }
@@ -49,6 +49,7 @@ div.node {
 
   100% {
     background-position: 0% 38%; } }
+
 @keyframes AnimationName {
   0% {
     background-position: 0% 38%; }
