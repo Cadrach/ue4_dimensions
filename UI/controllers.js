@@ -33,9 +33,9 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
                     'control-point-distances': '0 0',
                     'control-point-weights': '0.25 0.75',
 
-                    'transition-property': 'control-point-distances',
-                    'transition-duration': '5s',
-//                    'transition-timing-function': 'ease-out-quad',
+                    // 'transition-property': 'control-point-distances',
+                    // 'transition-duration': '5s',
+                    // 'transition-timing-function': 'easeInElastic',
 
                     'target-arrow-color': '#000',
                     'target-arrow-shape': 'none',
@@ -48,20 +48,6 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
                     'shadow-color': '#FF0000',
                     'shadow-offset-x': 1,
                     'shadow-offset-y': 0,
-                })
-                .selector('.flow')
-                .css({
-                     // 'background-color': '#61bffc',
-                     // 'line-color': '#61bffc',
-                     // 'target-arrow-color': '#61bffc',
-                     'control-point-distances': '30 -30',
-                })
-                .selector('.flowBack')
-                .css({
-                     // 'background-color': '#61bffc',
-                     // 'line-color': '#61bffc',
-                     // 'target-arrow-color': '#61bffc',
-                     'control-point-distances': '-30 30',
                 }),
 
             elements: {
@@ -115,44 +101,60 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
             }
         });
 
-        var pathes = cy.elements().bfs('#0', function(){}, true).path;
+        /**
+         * Edge animation cycle
+         * @param edge
+         * @param cycles
+         */
+        function flowEdge(edge, cycles){
 
-        // function flow(){
-        //     pathes.animate({
-        //         style: {'control-point-distances': '30 -30',},
-        //         position: { x: 100, y: 100 },
-        //         // 'transition-property': 'control-point-distances',
-        //         // 'transition-duration': '5s',
-        //         // 'transition-timing-function': 'ease-out-quad',
-        //     }, {duration: 5000})
-        // }
-        //
-        // flow();
-        console.log(cy.edges());
-        $scope.flow = function (cycle){
-            var value = Math.random()*20 + 10;
-            var cycles = [
-                value + ' 0',
-                '-' + value +' 0'
-            ];
-            var blur = [
-                10,
-                30,
-                10,
-                30
-            ];
-            var duration = (Math.random()*4+1) *1000;
-            cy.edges().animate({
-                style: { 'control-point-distances': cycles[cycle]},
+            var value = (Math.random()*60 - 30);
+            var duration = Math.random() * 4000 + 5000;
+            var color = cycles%2 ? '#990000':'#000';
+            edge.animate({
+                style: {
+                    'control-point-distances': value + ' 0',
+                    'line-color' : color
+                    // 'control-point-weights': rand + ' ' + (1-rand)
+                },
                 // style: { 'control-point-weights': value ? '0 1':'1 0'},
-                queue: true,
-                // easing: 'ease',
+                // queue: true,
+                easing: 'ease-out-sine',
                 duration: duration
             });
-            setTimeout(function(){$scope.flow((cycle+1)%cycles.length)}, duration)
+            setTimeout(function(){flowEdge(edge, ++cycles)}, duration)
         }
 
-        $scope.flow(0);
+        function flowNode(node, cycles){
+            var randX = Math.random()*10 - 5;
+            var randY = Math.random()*10 - 5;
+            var size = Math.random()*10 + 25;
+            var duration = Math.random() * 4000 + 1000;
+            var color = cycles%2 ? '#550000':'#000';
+            node.animate({
+                position: {x: node.initialPosition.x+randX, y: node.initialPosition.y+randY},
+                style: {
+                    'height': size,
+                    'width': size,
+                    'background-color': color
+                },
+                duration: duration
+            })
+            setTimeout(function(){flowNode(node, ++cycles)}, duration)
+        }
+
+
+        //Attach an animation to each edge
+        cy.edges().forEach(function(edge){
+            flowEdge(edge, 0);
+        });
+
+        //Attach an animation to each node
+        cy.nodes().forEach(function(node){
+            node.initialPosition = angular.copy(node.position());
+            flowNode(node, 0);
+        })
+
 //
 //        $scope.flowCss = function(){
 //            cy.edges().css({

@@ -13,7 +13,8 @@ body {
 
 #network {
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  background: rgba(0, 0, 255, 0.35); }
 
 div.node {
   width: 40px;
@@ -39,7 +40,6 @@ div.node {
 
   100% {
     background-position: 0% 38%; } }
-
 @-moz-keyframes AnimationName {
   0% {
     background-position: 0% 38%; }
@@ -49,7 +49,6 @@ div.node {
 
   100% {
     background-position: 0% 38%; } }
-
 @keyframes AnimationName {
   0% {
     background-position: 0% 38%; }
