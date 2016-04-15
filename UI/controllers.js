@@ -32,6 +32,11 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
                     'curve-style': 'unbundled-bezier',
                     'control-point-distances': '0 0',
                     'control-point-weights': '0.25 0.75',
+
+                    'transition-property': 'control-point-distances',
+                    'transition-duration': '5s',
+//                    'transition-timing-function': 'ease-out-quad',
+
                     'target-arrow-color': '#000',
                     'target-arrow-shape': 'none',
 
@@ -43,26 +48,20 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
                     'shadow-color': '#FF0000',
                     'shadow-offset-x': 1,
                     'shadow-offset-y': 0,
-                // })
-                // .selector('.flow')
-                // .css({
-                //     // 'background-color': '#61bffc',
-                //     // 'line-color': '#61bffc',
-                //     // 'target-arrow-color': '#61bffc',
-                //     'control-point-distances': '30 -30',
-                //     'transition-property': 'control-point-distances',
-                //     'transition-duration': '5s',
-                //     'transition-timing-function': 'ease-out-quad',
-                // })
-                // .selector('.flowBack')
-                // .css({
-                //     // 'background-color': '#61bffc',
-                //     // 'line-color': '#61bffc',
-                //     // 'target-arrow-color': '#61bffc',
-                //     'control-point-distances': '-30 30',
-                //     'transition-property': 'control-point-distances',
-                //     'transition-duration': '5s',
-                //     'transition-timing-function': 'ease-out-quad',
+                })
+                .selector('.flow')
+                .css({
+                     // 'background-color': '#61bffc',
+                     // 'line-color': '#61bffc',
+                     // 'target-arrow-color': '#61bffc',
+                     'control-point-distances': '30 -30',
+                })
+                .selector('.flowBack')
+                .css({
+                     // 'background-color': '#61bffc',
+                     // 'line-color': '#61bffc',
+                     // 'target-arrow-color': '#61bffc',
+                     'control-point-distances': '-30 30',
                 }),
 
             elements: {
@@ -131,14 +130,18 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
         // flow();
         console.log(cy.edges());
         $scope.flow = function (cycle){
+            var value = Math.random()*20 + 10;
             var cycles = [
-                '30 0',
-                '0 0',
-                '-30 0',
-                '0 0'
+                value + ' 0',
+                '-' + value +' 0'
             ];
-            var duration = 5000;
-            console.log('CYCLE', cycle, cycles[cycle])
+            var blur = [
+                10,
+                30,
+                10,
+                30
+            ];
+            var duration = (Math.random()*4+1) *1000;
             cy.edges().animate({
                 style: { 'control-point-distances': cycles[cycle]},
                 // style: { 'control-point-weights': value ? '0 1':'1 0'},
@@ -150,18 +153,20 @@ dimensionsControllers.controller('MainCtrl', ['$scope',
         }
 
         $scope.flow(0);
-    // console.log(pathes);
-    //     var i = 0;
-    //     var highlightNextEle = function(){
-    //         if( i < pathes.length ){
-    //             pathes[i].addClass('highlighted');
-    //
-    //             i++;
-    //             setTimeout(highlightNextEle, 1000);
-    //         }
-    //     };
+//
+//        $scope.flowCss = function(){
+//            cy.edges().css({
+//                'control-point-distances': '30 -30',
+//                'transition-property': 'control-point-distances',
+//                'transition-duration': '5s',
+//                'transition-timing-function': 'ease-out-quad',
+//            })
+//        }
 
-// kick off first highlight
-//         highlightNextEle();
+//        setTimeout($scope.flowCss, 1000);
 
+//        cy.edges().classes('flow');
+//        setTimeout(function(){
+//            cy.edges().removeClass('flow').classes('flowBack');
+//        }, 5000)
     }]);
